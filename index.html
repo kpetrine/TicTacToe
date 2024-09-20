@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div id="header" class="container text-center p-3"></div>
+
+    <div class="row">
+        <div class="col pt-2">
+            <h1>Tic Tac Toe</h1>
+            <p>Tic-tac-toe is a simple, two-player game that, if played optimally by 
+                both players, will always result in a tie. The game is also called noughts 
+                and crosses or Xs and Os.</p>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col fs-2">Player 1 - X</div>
+        <div class="col fs-2"></div>
+        <div class="col fs-2">Player 2 - O</div>
+    </div>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="game">
+            <div class="row">
+                <div class="col cell"></div>
+                <div class="col cell border-start border-end"></div>
+                <div class="col cell"></div>
+            </div>
+
+            <div class="row">
+                <div class="col cell border-top border-bottom"></div>
+                <div class="col cell border-top border-bottom border-start border-end"></div>
+                <div class="col cell border-top border-bottom"></div>
+            </div>
+
+            <div class="row">
+                <div class="col cell"></div>
+                <div class="col cell border-start border-end"></div>
+                <div class="col cell"></div>
+            </div>           
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="tictactoe.js"></script>
+</body>
+</html>
+
+
+ <!-- //bootstrap winner
+    <div class="alert alert-winner" role="alert">
+        <a href="#" class="alert-link">won</a>. 
+      </div>
+tictactoe.js 
+       var winner = checkWinner(board);
+            if (winner) {
+                console.log("Winner is: " + winner);
+            } else {
+                console.log("No winner yet.");
+            }
+            
+      
