@@ -6,96 +6,81 @@
 // When a player has won, or the board is full and the game results in a draw, 
 // a Bootstrap alert or similar Bootstrap component should appear across the screen announcing the winner.
 
+$("h1").css("color", "Purple");
 
-    $("h1").css("color", "Purple");
-
-         
-        // matrix
-        // [012345678]
-        //
-        // 0 1 2
-        // 3 4 5
-        // 6 7 8
-        //
-        // Winning:
-        // 012,345,678
-        // 036,147,258
-        // 048,246
-      
-        $(function() {
-          const $game = $('#game');
-      
-          $game.on('click', (e) => {
-            const $cell = $(e.target).closest('.cell');
-            if ($cell.length) {
-              const player = $cell.data('player') || 'X';   // dataset.player
-              $cell.empty();
-              if (player === 'O') {
-                $cell.append($(`<i class="bi bi-chat"></i>)`));
-                $cell.data('player', 'X');
-              }
-              else {
-                $cell.append($(`<i class="bi bi-emoji-heart-eyes-fill"></i>`));
-                $cell.data('player', 'O');
-              }
-            }
-          });
-        });  
-
-        // to find winner
-        $(function() {
-            var board = ["", "", "", "", "", "", "", "", ""]; // Empty board
-            var winningCombinations = [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-                [0, 3, 6],
-                [1, 4, 7],
-                [2, 5, 8],
-                [0, 4, 8],
-                [2, 4, 6]
-            ];
-        
-            // Example moves 
-            board[0] = 'X'; 
-            board[1] = 'X'; 
-            board[2] = 'X'; // X wins!
-        
-            var winner = checkWinner(board);
-            if (winner) {
-                console.log("Winner is: " + winner);
-            } else {
-                console.log("No winner yet.");
-            }
-            
-            // Check for each board position and log
-            $.each(board, function(index, value) {
-                console.log("Position " + index + " = " + value);
-            });
-        });
-        
-        function checkWinner(board) {
-            for (var i = 0; i < winningCombinations.length; i++) {
-                var [a, b, c] = winningCombinations[i];
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    return board[a]; // Return the winning player's mark
-                }
-            }
-            return null; // No winner
+    const PLAYER_X = "👻"; // Player 1
+    const PLAYER_O = "🎃"; // Player 2
+    let currentPlayer = PLAYER_X; // Start with Player 1
+    let board = Array(9).fill("");
+    
+    function initializeGame() {
+        board.fill("");
+        currentPlayer = PLAYER_X;
+        updateTurnDisplay();
+        $(".cell").text("").off('click').on('click', cellClickHandler);
+    }
+    
+    function updateTurnDisplay() {
+        $("#turnDisplay").text(`It's ${currentPlayer}'s turn!`);
+    }
+    
+    function switchPlayer() {
+        currentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
+        updateTurnDisplay(); // Update the display after switching to state whose turn it is
+    }
+    
+    function cellClickHandler() {
+        const index = $(this).attr('id') - 1;
+        if (board[index] === "") {
+            board[index] = currentPlayer;
+            $(this).text(currentPlayer);
+            checkGameStatus();
+            switchPlayer();
         }
-
-        //reset game
-        $(function () {
-            newGame();
-            
-            //Click event to start the game
-            $(".start-btn-wrapper").click(function () {
-                startplay();
-            
-            });
-            //Click event to restart the game
-            $(".restart-btn").click(function () {
-                restartplay();
-            }); 
+    }
         
-      })(jQuery);
+    function checkWinner() {
+        const winningCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let [a, b, c] of winningCombinations) {
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a]; // Declare the winner
+            }
+        }
+        return null; // No winner
+    }
+    
+    function checkGameStatus() {
+        const winner = checkWinner();
+        if (winner) {
+            showAlert(`Winner is: ${winner}`);
+            $(".cell").off('click');
+        } else if (board.every(cell => cell !== "")) {
+            showAlert("It's a draw!");
+        }
+    }
+           
+    function showAlert(message) {
+        $('#alertWinner').text(message).show(); // show alert of winner or draw
+    }
+    
+    function startNewGame() {
+        initializeGame();
+        $('#alertStart').hide();
+        $('#alertWinner').hide();
+        $('#alertDraw').hide();
+    }
+    
+    $(function() {
+        $("#startBtn").on("click", startNewGame);
+        $("#restartBtn").on("click", startNewGame);
+        startNewGame(); // setup new game
+    });

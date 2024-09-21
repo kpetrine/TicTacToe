@@ -2,3 +2,20 @@ body {
     background-color: green;
 }
 
+
+h2 {
+    color: white;
+    text-align: center;
+  }
+.cell {
+min-width: 100px;   /* Set a width for each cell */
+min-height: 100px; /* Set a height for each cell */
+max-width: 100px;   /* Set a width for each cell */
+max-height: 100px;  /* Set a height for each cell */
+font-size: 3rem;   /* Enlarge the symbols */
+display: flex;      /* Use flexbox for centering inside cells */
+justify-content: center; /* Center the symbol horizontally */
+border: 2px solid black; /* Add a border to the cells */
+
+}
+
