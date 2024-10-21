@@ -1,3 +1,4 @@
+# JavaScript Tic Tac Toe
 This code implements a web-based Tic Tac Toe game with a fun twist: instead of traditional Xs and Os, players use emojis—👻 (ghost) for Player 1 and 🎃 (pumpkin) for Player 2. Here’s a detailed breakdown of what the app does:
 
 ## Key Features
@@ -45,5 +46,5 @@ Bootstrap is included via a local file for styling. It provides pre-designed com
 ### 9. Emojis
 The game uses emojis (👻 and 🎃) as symbols for the players, adding a fun and engaging element to the gameplay.
 
-### Summary
+## Summary
 These technologies work together to create a dynamic and interactive Tic Tac Toe game, allowing players to engage with the game through a visually appealing and user-friendly interface. The combination of HTML, CSS, JavaScript, jQuery, and Bootstrap showcases a solid understanding of web development principles.
